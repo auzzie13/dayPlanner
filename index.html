@@ -30,47 +30,47 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-        <div class="row time-block">
+        <div class="row time-block" value="09">
             <time class="hour">09:00am</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="10">
             <time class="hour">10:00am</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="11">
             <time class="hour">11:00am</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="12">
             <time class="hour">12:00pm</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="13">
             <time class="hour">01:00pm</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="14">
             <time class="hour">02:00pm</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="15">
             <time class="hour">03:00pm</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block" value="16">
             <time class="hour">04:00pm</time>
             <input type="text" class="description">
             <button class="saveBtn">Save</button>
         </div>
-        <div class="row time-block">
+        <div class="row time-block"  value="17">
             <time class="hour">05:00pm</time>
             <input type="text" class="description">
             <button class="saveBtn hover">Save</button>
@@ -80,26 +80,42 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
-      console.log(localStorage);
+
       var currentDayEl = $('#currentDay');
+      var now = moment();
+      var timeDisplay = now.format('dddd, MMMM Do, hh:mm a')
+      var timeColorEl = now.format('HH');
+      var timeBlockEl = $('.time-block');
+      var hourEl = $('.hour');
+      var descriptionEl = $('.description');
+      var saveBtnEl = $('.saveBtn');
 
       function updateTime () {
-        var now = moment();
-        var timeDisplay = now.format('dddd, MMMM do, hh:mm a')
+        now;
+        timeDisplay;
         currentDayEl.text(timeDisplay)
-     }    
+     }
+
+      function updateColors () {
+        if (timeBlockEl.value() == timeColorEl) {
+          timeBlockEl.class("present")
+        } else if (timeBlockEl.value() > timeColorEl) {
+          timeBlockEl.class("future")
+        } else if (timeBlockEl.value() < timeColorEl) {
+          timeBlockEl.class("past")
+        }
+      }  
+
      setInterval(updateTime, 1000);
      updateTime();
+     updateColors();
             
-        var timeBlockEl = $('.time-block');
-        var hourEl = $('.hour');
-        var descriptionEl = $('.description');
-        var saveBtnEl = $('.saveBtn');
-
         saveBtnEl.on('click', function() {
-          var descriptionELStor = descriptionEl.html();
-          localStorage.setItem(JSON.stringify(descriptionElStor));
+          var newTask = descriptionEl.val();
+          localStorage.setItem('new task: ', JSON.stringify(newTask));
+          localStorage.setItem('time: ', JSON.stringify(timeDisplay));
             })
+
     
 
       </script> 
