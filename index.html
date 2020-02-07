@@ -84,7 +84,7 @@
       var currentDayEl = $('#currentDay');
       var now = moment();
       var timeDisplay = now.format('dddd, MMMM Do, hh:mm a')
-      var timeColorEl = now.format('HH');
+      var timeColorEl = now.format('H');
       var timeBlockEl = $('.time-block');
       var hourEl = $('.hour');
       var descriptionEl = $('.description');
@@ -97,18 +97,19 @@
      }
 
       function updateColors () {
-        if (timeBlockEl.value() == timeColorEl) {
-          timeBlockEl.class("present")
-        } else if (timeBlockEl.value() > timeColorEl) {
-          timeBlockEl.class("future")
-        } else if (timeBlockEl.value() < timeColorEl) {
-          timeBlockEl.class("past")
+        if (timeBlockEl.val() ==  timeColorEl) {
+          timeBlockEl.addClass("present")
+        } else if (timeBlockEl.val() > timeColorEl) {
+          timeBlockEl.addClass("future")
+        } else if (timeBlockEl.val() < timeColorEl) {
+          timeBlockEl.addClass("past")
         }
       }  
-
+     console.log(JSON.parse(timeBlockEl.val("")));
+     console.log(timeColorEl);
      setInterval(updateTime, 1000);
      updateTime();
-     updateColors();
+     //updateColors();
             
         saveBtnEl.on('click', function() {
           var newTask = descriptionEl.val();
